@@ -51,7 +51,7 @@
         TextLabel.Position = UDim2.new(0.387811601, 0, -0.0344827585, 0)
         TextLabel.Size = UDim2.new(0, 87, 0, 29)
         TextLabel.Font = Enum.Font.Code
-        TextLabel.Text = "Azure"
+        TextLabel.Text = "Tsuohub test"
         TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
         TextLabel.TextScaled = true
         TextLabel.TextSize = 14.000
@@ -69,7 +69,7 @@
         LoadingText.Position = UDim2.new(0.0775623247, 0, 0.286810249, 0)
         LoadingText.Size = UDim2.new(0, 312, 0, 25)
         LoadingText.Font = Enum.Font.Code
-        LoadingText.Text = "welcome"
+        LoadingText.Text = "Tsuothe best"
         LoadingText.TextColor3 = Color3.fromRGB(163, 163, 163)
         LoadingText.TextScaled = true
         LoadingText.TextSize = 14.000
@@ -515,7 +515,7 @@
             return var
         end
         
-        local title_string = "Azure | User Status : "..CheckStatus(game.Players.LocalPlayer.Name).." | %A, %B"
+        local title_string = "Tsuo hub best | User Status : "..CheckStatus(game.Players.LocalPlayer.Name).." | %A, %B"
         local day = os.date(" %d", os.time())
         local second_string = ", %Y."
         title_string = os.date(title_string, os.time())..day..GetSubPrefix(day)..os.date(second_string, os.time())
