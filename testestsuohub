@@ -50,32 +50,32 @@ if workspace:FindFirstChild("AbilityThingyk1212") then
 end
 
 local RayfieldURL = isPlayerOnMobile() and 
-                    'https://raw.githubusercontent.com/Tsuohubquan99/Arrayfield/main/NewUI' or 
-                    'https://raw.githubusercontent.com/Tsuohubquan99/Arrayfield/main/NewUI'
+                    'https://raw.githubusercontent.com/hungquan99/Arrayfield/main/NewUI' or 
+                    'https://raw.githubusercontent.com/hungquan99/Arrayfield/main/NewUI'
 
 local Rayfield = loadstring(game:HttpGet(RayfieldURL))()
 
 
 local Window = Rayfield:CreateWindow({
-   Name = "Tsuohub Hub Premium | Blade Ball",
-   LoadingTitle = "Tsuo Hub Premium",
-   LoadingSubtitle = "by Tsuoscripts",
+   Name = "Hung Hub Premium | Blade Ball",
+   LoadingTitle = "Hung Hub Premium",
+   LoadingSubtitle = "by hungquan99",
    ConfigurationSaving = {
       Enabled = false,
-      FolderName = "Tsuo Hub Premium",
+      FolderName = "Hung Hub Premium",
       FileName = "Blade Ball"
    },
    Discord = {
       Enabled = true,
-      Invite = "tsuoscripts",
+      Invite = "gNKfqqjYvg",
       RememberJoins = true
    },
    KeySystem = false,
    KeySettings = {
-      Title = "Tsuo Hub",
+      Title = "Hung Hub",
       Subtitle = "Key System",
       Note = "",
-      FileName = "TsuohubKeySystem",
+      FileName = "HungKeySystem",
       SaveKey = true,
       GrabKeyFromSite = false,
       Key = "anbatukam"
@@ -87,9 +87,9 @@ local Ability = Window:CreateTab("Abilities", 14467433545)
 local Misc = Window:CreateTab("Misc", 14467433545)
 
 if character then
-    print("Character found | Tsuohub  Premium")
+    print("Character found | Hung Hub Premium")
 else
-    print("Character not found | Tsuohub Premium")
+    print("Character not found | Hung Hub Premium")
     return
 end
 
@@ -166,7 +166,7 @@ end
 local function checkIfTarget()
     for _, v in pairs(ballsFolder:GetChildren()) do
         if v:IsA("Part") and v.BrickColor == BrickColor.new("Really red") then 
-            print("Ball is targetting player | Tsuohub Premium")
+            print("Ball is targetting player | Hung Hub Premium")
             return true 
         end 
     end 
@@ -185,11 +185,11 @@ local function checkBallDistance()
     local charVel = character.PrimaryPart.Velocity
 
     if focusedBall and not focusedBall.Parent then
-        print("Focused ball lost parent, choosing a new focused ball | Tsuohub Premium")
+        print("Focused ball lost parent, choosing a new focused ball | Hung Hub Premium")
         chooseNewFocusedBall()
     end
     if not focusedBall then 
-        print("No focused ball | Tsuohub Hub Premium")
+        print("No focused ball | Hung Hub Premium")
         chooseNewFocusedBall()
     end
 
@@ -215,7 +215,7 @@ local function checkBallDistance()
                     local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
                     local StarterGui = game:GetService("StarterGui")
                     StarterGui:SetCore("SendNotification", {
-                        Title = "Tsuohub Hub",
+                        Title = "Hung Hub",
                         Text = "Manually Parried Ball!",
                         Duration = 1,
                         Icon = "rbxassetid://14467433545"
@@ -229,7 +229,7 @@ local function checkBallDistance()
             if notifyparried == true then
                 local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "Tsuohub Hub",
+                    Title = "Hung Hub",
                     Text = "Automatically Parried Ball!",
                     Duration = 1,
                     Icon = "rbxassetid://14467433545"
@@ -267,7 +267,7 @@ end)
 
 
 local function startAutoParry()
-    print("Started Auto Parry | Tsuohub Hub Premium")
+    print("Started Auto Parry | Hung Hub Premium")
     
     chooseNewFocusedBall()
     
@@ -356,8 +356,8 @@ local DiscordButton = AutoParry:CreateButton({
         local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/BocusLuke/UI/main/STX/Client.Lua"))()
         local StarterGui = game:GetService("StarterGui")
             StarterGui:SetCore("SendNotification", {
-                Title = "Tsuohub Hub",
-                Text = "Copied Tsuohub Hub discord invite link!",
+                Title = "Hung Hub",
+                Text = "Copied Hung Hub discord invite link!",
                 Duration = 5,
                 Icon = "rbxassetid://14467433545"
             })
@@ -378,7 +378,7 @@ local AutoParryToggle = AutoParry:CreateToggle({
             startAutoParry()
             local StarterGui = game:GetService("StarterGui")
             StarterGui:SetCore("SendNotification", {
-                Title = "Tsuohub Hub",
+                Title = "Hung Hub",
                 Text = "Auto Parry has been started!",
                 Duration = 3,
                 Icon = "rbxassetid://14467433545"
@@ -387,7 +387,7 @@ local AutoParryToggle = AutoParry:CreateToggle({
             stopAutoParry()
             local StarterGui = game:GetService("StarterGui")
             StarterGui:SetCore("SendNotification", {
-                Title = "Tsuohub Hub",
+                Title = "Hung Hub",
                 Text = "Auto Parry has been disabled!",
                 Duration = 3,
                 Icon = "rbxassetid://14467433545"
@@ -405,7 +405,7 @@ local AutoTpParryToggle = AutoParry:CreateToggle({
         if Value then
             local StarterGui = game:GetService("StarterGui")
                     StarterGui:SetCore("SendNotification", {
-                        Title = "Tsuohub Hub",
+                        Title = "Hung Hub",
                         Text = "Auto TP Parry has been started!",
                         Duration = 3,
                         Icon = "rbxassetid://14467433545"
@@ -429,7 +429,7 @@ end
             getgenv().god = false
             local StarterGui = game:GetService("StarterGui")
                     StarterGui:SetCore("SendNotification", {
-                        Title = "Tsuohub Hub",
+                        Title = "Hung Hub",
                         Text = "Auto TP Parry has been disabled!",
                         Duration = 3,
                         Icon = "rbxassetid://14467433545"
@@ -449,7 +449,7 @@ local AutoRagingDeflect = AutoParry:CreateToggle({
             UseRage = Value
             local StarterGui = game:GetService("StarterGui")
             StarterGui:SetCore("SendNotification", {
-                Title = "Tsuohub Hub",
+                Title = "Hung Hub",
                 Text = "Auto Parry with Ability has been started!",
                 Duration = 3,
                 Icon = "rbxassetid://14467433545"
@@ -459,7 +459,7 @@ local AutoRagingDeflect = AutoParry:CreateToggle({
             UseRage = Value
             local StarterGui = game:GetService("StarterGui")
             StarterGui:SetCore("SendNotification", {
-                Title = "Tsuohub Hub",
+                Title = "Hung Hub",
                 Text = "Auto Parry with Ability has been disabled!",
                 Duration = 3,
                 Icon = "rbxassetid://14467433545"
@@ -589,7 +589,7 @@ local Dash = Ability:CreateButton({
         end
         local StarterGui = game:GetService("StarterGui")
         StarterGui:SetCore("SendNotification", {
-            Title = "Tsuohub Hub",
+            Title = "Hung Hub",
             Text = "You got dash ability!",
             Duration = 3,
             Icon = "rbxassetid://14467433545"
@@ -644,7 +644,7 @@ local PhaseBypass = Ability:CreateButton({
         end
         local StarterGui = game:GetService("StarterGui")
         StarterGui:SetCore("SendNotification", {
-            Title = "Tsuohub Hub",
+            Title = "Hung Hub",
             Text = "You got phase bypass ability!",
             Duration = 3,
             Icon = "rbxassetid://14467433545"
@@ -699,7 +699,7 @@ local ShadowStep = Ability:CreateButton({
         end
         local StarterGui = game:GetService("StarterGui")
         StarterGui:SetCore("SendNotification", {
-            Title = "Tsuohub Hub",
+            Title = "Hung Hub",
             Text = "You got shadow step ability!",
             Duration = 3,
             Icon = "rbxassetid://14467433545"
@@ -754,7 +754,7 @@ local SuperJump = Ability:CreateButton({
         end
         local StarterGui = game:GetService("StarterGui")
         StarterGui:SetCore("SendNotification", {
-            Title = "Tsuohub Hub",
+            Title = "Hung Hub",
             Text = "You got super jump ability!",
             Duration = 3,
             Icon = "rbxassetid://14467433545"
@@ -809,7 +809,7 @@ local ThunderDash = Ability:CreateButton({
         end
         local StarterGui = game:GetService("StarterGui")
         StarterGui:SetCore("SendNotification", {
-            Title = "Tsuohub Hub",
+            Title = "Hung Hub",
             Text = "You got thunder dash ability!",
             Duration = 3,
             Icon = "rbxassetid://14467433545"
@@ -864,7 +864,7 @@ local WindCloak = Ability:CreateButton({
         end
         local StarterGui = game:GetService("StarterGui")
         StarterGui:SetCore("SendNotification", {
-            Title = "Tsuohub Hub",
+            Title = "Hung Hub",
             Text = "You got wind cloak ability!",
             Duration = 3,
             Icon = "rbxassetid://14467433545"
@@ -883,7 +883,7 @@ local InfDash = Misc:CreateButton({
         upgrades:WaitForChild("Dash").Value = 999999999999999999
             local StarterGui = game:GetService("StarterGui")
                     StarterGui:SetCore("SendNotification", {
-                        Title = "Tsuohub Hub",
+                        Title = "Hung Hub",
                         Text = "You got inf dash!",
                         Duration = 3,
                         Icon = "rbxassetid://14467433545"
@@ -898,7 +898,7 @@ local InfST = Misc:CreateButton({
         upgrades:WaitForChild("Shadow Step").Value = 999999999999999999
             local StarterGui = game:GetService("StarterGui")
                     StarterGui:SetCore("SendNotification", {
-                        Title = "Tsuohub Hub",
+                        Title = "Hung Hub",
                         Text = "You got inf shadow step!",
                         Duration = 3,
                         Icon = "rbxassetid://14467433545"
@@ -913,7 +913,7 @@ local InfSuperJump = Misc:CreateButton({
         upgrades:WaitForChild("Super Jump").Value = 999999999999999999
             local StarterGui = game:GetService("StarterGui")
                     StarterGui:SetCore("SendNotification", {
-                        Title = "Tsuohub Hub",
+                        Title = "Hung Hub",
                         Text = "You got inf super jump!",
                         Duration = 3,
                         Icon = "rbxassetid://14467433545"
@@ -928,7 +928,7 @@ local InfThunderDash = Misc:CreateButton({
         upgrades:WaitForChild("Thunder Dash").Value = 999999999999999999
             local StarterGui = game:GetService("StarterGui")
                     StarterGui:SetCore("SendNotification", {
-                        Title = "Tsuohub Hub",
+                        Title = "Hung Hub",
                         Text = "You got inf thunder dash!",
                         Duration = 3,
                         Icon = "rbxassetid://14467433545"
@@ -955,7 +955,7 @@ local RedeemButton = Misc:CreateButton({
         end
         local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "Tsuohub Hub",
+                    Title = "Hung Hub",
                     Text = "Redeemed all codes!",
                     Duration = 3,
                     Icon = "rbxassetid://14467433545"
@@ -969,7 +969,7 @@ local SvHop = Misc:CreateButton({
     Callback = function()
         local StarterGui = game:GetService("StarterGui")
                 StarterGui:SetCore("SendNotification", {
-                    Title = "Tsuohub Hub",
+                    Title = "Hung Hub",
                     Text = "Hopping to another server!",
                     Duration = 3,
                     Icon = "rbxassetid://14467433545"
