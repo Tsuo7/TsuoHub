@@ -1,7 +1,7 @@
 local luxurylibrary = {}
 
-if game:GetService("CoreGui"):FindFirstChild("Tsuohub") then
-	game:GetService("Tsuoscripts"):FindFirstChild("Tsuohub"):Destroy()
+if game:GetService("CoreGui"):FindFirstChild("luxury.ui") then
+	game:GetService("CoreGui"):FindFirstChild("luxury.ui"):Destroy()
 end
 
 local UserInputService = game:GetService("UserInputService")
