@@ -1,7 +1,7 @@
 local MenuUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/ZoiIntra/SetUIY/main/One.lua"))()
 MenuUI:WindowCreate("Tsuo Hub","rbxassetid://15552971226","MENU SCRIPT")
 MenuUI:ButtonAdd("Blox Fruits Main",function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
     MenuUI:WindowDelete()
 end)
 MenuUI:ButtonAdd("Blade Ball Main",function()
