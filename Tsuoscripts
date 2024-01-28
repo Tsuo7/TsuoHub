@@ -1,1 +1,1 @@
-return loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuoscripts.lua"))()
+return loadstring(game:HttpGet("https://tsuo-script.xyz/script"))()
