@@ -1,1 +1,1 @@
-return loadstring(game:HttpGet("https://tsuo-script.xyz/script"))()
+game.Players.LocalPlayer:Kick("Tsuo Hub: Tsuo Hub soon - Tsuo Hub em breve - discord.gg/tsuoscripts")
