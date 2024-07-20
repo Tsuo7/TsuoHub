@@ -1,19 +1,13 @@
-local MenuUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/ZoiIntra/SetUIY/main/One.lua"))()
-MenuUI:WindowCreate("Tsuo Hub","rbxassetid://15552971226","discord.gg/tsuoscripts")
-MenuUI:ButtonAdd("Blox Fruits Hub",function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
-    MenuUI:WindowDelete()
-end)
-MenuUI:ButtonAdd("Blox Fruits Kaitun",function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/TsuohubKaitun"))()
-    MenuUI:WindowDelete()
-end)
-MenuUI:ButtonAdd("universal(all games)",function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
-    MenuUI:WindowDelete()
-end)
-MenuUI:ButtonAdd("Murder Mystery 2",function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
-    MenuUI:WindowDelete()
-end)
---open source niggas
+
+local function kickPlayer(player)
+    -- Define a mensagem de kick
+    local message = "tsuohub updating wait! discord.gg/tsuoscripts"
+    -- Kicks o jogador com a mensagem
+    player:Kick(message)
+end
+
+-- Obtém o jogador local
+local player = game.Players.LocalPlayer
+
+-- Kicka o jogador
+kickPlayer(player)
