@@ -1,1 +1,1 @@
-return loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/NewPage/main/Blox_Fruit.lua"))()
+return loadstring(game:HttpGet('https://raw.githubusercontent.com/memaybeohub/NewPage/main/Blox_Fruit.lua'))()
