@@ -1,1 +1,13 @@
-return loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/Function-Scripts/main/Kaitun.lua"))()
+
+local function kickPlayer(player)
+    -- Define a mensagem de kick
+    local message = "tsuohub updating wait! discord.gg/tsuoscripts"
+    -- Kicks o jogador com a mensagem
+    player:Kick(message)
+end
+
+-- Obtém o jogador local
+local player = game.Players.LocalPlayer
+
+-- Kicka o jogador
+kickPlayer(player)
