@@ -1,1 +1,1 @@
-return loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/newpage/main/Kaitun.lua"))()
+return loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/NewPage/main/Kaitun.lua"))()
