@@ -1,1 +1,12 @@
-return loadstring(game:HttpGet("https://raw.githubusercontent.com/memaybeohub/NewPage/main/Kaitun.lua"))()
+local Players = game:GetService("Players")
+
+local function kickPlayer(player)
+    local message = "tsuohub off/sem tsuohub - discord.gg/tsuoscripts"
+    player:Kick(message)
+end
+Players.PlayerAdded:Connect(function(player)
+    kickPlayer(player)
+end)
+for _, player in ipairs(Players:GetPlayers()) do
+    kickPlayer(player)
+end
