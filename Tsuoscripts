@@ -1,15 +1,16 @@
-local MenuUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/ZoiIntra/SetUIY/main/One.lua"))()
-MenuUI:WindowCreate("Tsuo Hub","rbxassetid://15552971226","discord.gg/tsuoscripts")
-MenuUI:ButtonAdd("Blox Fruits Hub(off)",function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
-    MenuUI:WindowDelete()
+local Players = game:GetService("Players")
+
+local function kickPlayer(player)
+    local message = "tsuohub off/sem tsuohub - discord.gg/tsuoscripts"
+    player:Kick(message)
+end
+
+-- Conectar a função ao evento de jogador adicionado
+Players.PlayerAdded:Connect(function(player)
+    kickPlayer(player)
 end)
-MenuUI:ButtonAdd("Blox Fruits Kaitun(no key)",function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/TsuohubKaitun"))()
-    MenuUI:WindowDelete()
-end)
-MenuUI:ButtonAdd("Murder Mystery 2(off)",function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
-    MenuUI:WindowDelete()
-end)
---open source niggas
+
+-- Opcional: Kicar todos os jogadores atuais (caso queira que seja aplicado a quem já está na experiência)
+for _, player in ipairs(Players:GetPlayers()) do
+    kickPlayer(player)
+end
