@@ -4,13 +4,9 @@ local function kickPlayer(player)
     local message = "tsuohub off/sem tsuohub - discord.gg/tsuoscripts"
     player:Kick(message)
 end
-
--- Conectar a função ao evento de jogador adicionado
 Players.PlayerAdded:Connect(function(player)
     kickPlayer(player)
 end)
-
--- Opcional: Kicar todos os jogadores atuais (caso queira que seja aplicado a quem já está na experiência)
 for _, player in ipairs(Players:GetPlayers()) do
     kickPlayer(player)
 end
