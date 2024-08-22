@@ -1,12 +1,19 @@
-local Players = game:GetService("Players")
-
-local function kickPlayer(player)
-    local message = "tsuohub off/sem tsuohub - discord.gg/tsuoscripts"
-    player:Kick(message)
-end
-Players.PlayerAdded:Connect(function(player)
-    kickPlayer(player)
+local MenuUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/ZoiIntra/SetUIY/main/One.lua"))()
+MenuUI:WindowCreate("Tsuo Hub","rbxassetid://15552971226","discord.gg/tsuoscripts")
+MenuUI:ButtonAdd("Blox Fruits Hub",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
+    MenuUI:WindowDelete()
 end)
-for _, player in ipairs(Players:GetPlayers()) do
-    kickPlayer(player)
-end
+MenuUI:ButtonAdd("Blox Fruits Kaitun",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/TsuohubKaitun"))()
+    MenuUI:WindowDelete()
+end)
+MenuUI:ButtonAdd("universal(all games)",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
+    MenuUI:WindowDelete()
+end)
+MenuUI:ButtonAdd("Murder Mystery 2",function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohubbf"))()
+    MenuUI:WindowDelete()
+end)
+--open source niggas
