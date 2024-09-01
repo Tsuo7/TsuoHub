@@ -1,11 +1,1 @@
-local gameId = game.PlaceId
-
-if gameId == 2753915549 then
-    -- Blox Fruits
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/TsuoHubOld"))()
-elseif gameId == 10260193230 then
-    -- Meme Sea
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/memesea"))()
-else
-    print("Jogo não reconhecido. Nenhum script foi executado.")
-end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/TsuoHubOld"))()
