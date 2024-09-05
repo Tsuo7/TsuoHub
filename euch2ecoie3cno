@@ -1,0 +1,91 @@
+-- Tsuo Library Revisada
+local Tsuo = {}
+
+-- Função principal para criar a library
+function Tsuo:CreateLibrary(libraryName)
+    -- Checa se já existe uma ScreenGui com o nome dado para evitar duplicatas
+    if game.CoreGui:FindFirstChild(libraryName) then
+        game.CoreGui[libraryName]:Destroy()
+    end
+
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = libraryName or "Tsuohub"
+    screenGui.Parent = game.CoreGui -- Alterando para CoreGui em vez de PlayerGui para garantir compatibilidade
+    return screenGui
+end
+
+-- Funções básicas de controle da interface
+function Tsuo:DestroyLibrary(library)
+    if library then
+        library:Destroy()
+    end
+end
+
+function Tsuo:ToggleLibrary(library, visible)
+    if library then
+        library.Enabled = visible
+    end
+end
+
+function Tsuo:SetTransparency(element, transparency)
+    if element then
+        element.BackgroundTransparency = transparency
+    end
+end
+
+function Tsuo:SetVisibility(element, visible)
+    if element then
+        element.Visible = visible
+    end
+end
+
+function Tsuo:SetTheme(element, color)
+    if element then
+        element.BackgroundColor3 = color
+    end
+end
+
+function Tsuo:SetDraggable(frame, state)
+    if frame then
+        frame.Active = state
+        frame.Draggable = state
+    end
+end
+
+-- Funções para Tabs e Seções
+function Tsuo:AddTab(screenGui, tabName)
+    local tabButton = Instance.new("TextButton")
+    tabButton.Text = tabName
+    tabButton.Size = UDim2.new(0, 100, 0, 50)
+    tabButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    tabButton.Parent = screenGui
+    return tabButton
+end
+
+function Tsuo:AddSection(tab, sectionName)
+    local section = Instance.new("Frame")
+    section.Name = sectionName
+    section.Size = UDim2.new(1, 0, 0, 100)
+    section.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    section.Parent = tab
+    return section
+end
+
+-- Função para criar botões interativos
+function Tsuo:CreateButton(parent, text, callback)
+    local button = Instance.new("TextButton")
+    button.Text = text
+    button.Size = UDim2.new(0, 150, 0, 50)
+    button.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Parent = parent
+
+    button.MouseButton1Click:Connect(function()
+        if callback then
+            callback()
+        end
+    end)
+end
+
+return Tsuo
