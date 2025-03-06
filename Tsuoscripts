@@ -1,1 +1,1 @@
-return loadstring(game:HttpGet("https://raw.githubusercontent.com/Overgustx2/TsuoLoader/refs/heads/main/Tsuo.lua"))() -- discord.gg/tsuoscripts
+return loadstring(game:HttpGet("https://raw.githubusercontent.com/Overgustx2/TsuoLoader/refs/heads/main/Tsuo.lua"))()
