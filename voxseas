@@ -1,0 +1,2 @@
+return loadstring(game:HttpGet("https://raw.githubusercontent.com/DRK070/FindFruit/refs/heads/main/FindFruit.lua"))()
+
