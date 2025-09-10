@@ -1,84 +1,19 @@
-local Players = game:GetService("Players")
-local LocalizationService = game:GetService("LocalizationService")
-local LocalPlayer = Players.LocalPlayer
+-- Tsuo Universal Loader
+local PlaceId = game.PlaceId
+local Scripts = {
+    [4520749081] = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/king%20legacy", -- King Legacy
+    [124977557560410] = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/growagarden", -- Grow a Garden
+    [86076978383613] = "https://raw.githubusercontent.com/DRK070/TsuoHubZombie/refs/heads/main/TsuoHuntyZombie.lua", -- Hunty Zombie
+    [126509999114328] = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohub99nights", -- 99 Nights
+    [2753915549] = "https://raw.githubusercontent.com/Overgustx2/TsuoLoader/main/Tsuo.lua", -- Blox Fruits
+    [18687417158] = "https://raw.githubusercontent.com/DRK070/TsuoHubForsaken/refs/heads/main/TsuoForsaken.lua", -- Forsaken
+    [121864768012064] = "https://raw.githubusercontent.com/DRK070/TsuoFishIt/refs/heads/main/TsuoHubFishIt.lua", -- Fish It
+}
 
-local success, countryCode = pcall(function()
-    return LocalizationService:GetCountryRegionForPlayerAsync(LocalPlayer)
-end)
+local ScriptUrl = Scripts[PlaceId]
 
-local isPortuguese = false
-if success and countryCode == "BR" then
-    isPortuguese = true
+if ScriptUrl then
+    loadstring(game:HttpGet(ScriptUrl))()
 else
-    local PlayerLocaleId = LocalizationService.RobloxLocaleId or "en-us"
-    if string.find(PlayerLocaleId:lower(), "pt") then
-        isPortuguese = true
-    end
+    warn("Nenhum script configurado para este jogo! PlaceId: " .. PlaceId)
 end
-
-local function T(pt, en)
-    return isPortuguese and pt or en
-end
-
-local Fluent = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
-local Window = Fluent:CreateWindow({
-    Title = "Tsuo Hub",
-    SubTitle = "discord.gg/tsuo | By DRKscripts",
-    TabWidth = 120,
-    Size = UDim2.fromOffset(430, 300),
-    Acrylic = true,
-    Theme = "Amethyst"
-})
-
-local Tabs = {
-    Main = Window:AddTab({ Title = "Main", Icon = "home" }),
-    Scripts = Window:AddTab({ Title = T("Scripts", "Scripts"), Icon = "code" })
-}
-
-Tabs.Main:AddParagraph({
-    Title = T("Entre em nosso Discord!", "Join our Discord!"),
-    Content = "discord.gg/tsuo"
-})
-
-Tabs.Main:AddButton({
-    Title = T("Copiar link do Discord", "Copy Discord link"),
-    Description = "discord.gg/tsuo",
-    Callback = function()
-        setclipboard("discord.gg/tsuo")
-        Fluent:Notify({
-            Title = "Tsuo Hub",
-            Content = T("Link copiado para sua área de transferência!", "Link copied to clipboard!"),
-            Duration = 4
-        })
-    end
-})
-
-local games = {
-    {Name = "Grow a Garden", Url = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/growagarden"},
-    {Name = "Fish It", Url = "https://raw.githubusercontent.com/DRK070/TsuoFishIt/refs/heads/main/TsuoFishIt.lua"},
-    {Name = "99 Nights", Url = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohub99nights"},
-    {Name = "Hunty Zombie", Url = "https://raw.githubusercontent.com/DRK070/TsuoHubZombie/refs/heads/main/TsuoHuntyZombie.lua"},
-    {Name = "Forsaken", Url = "https://raw.githubusercontent.com/DRK070/TsuoHubForsaken/refs/heads/main/TsuoForsaken.lua"},
-    {Name = "Blox Fruits", Url = "https://raw.githubusercontent.com/Overgustx2/TsuoLoader/refs/heads/main/Tsuo.lua"},
-    {Name = "King Legacy", Url = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/king%20legacy"},
-}
-
-for _, entry in ipairs(games) do
-    Tabs.Scripts:AddButton({
-        Title = entry.Name,
-        Description = T("Executar script de ", "Execute script for ") .. entry.Name,
-        Callback = function()
-            loadstring(game:HttpGet(entry.Url))()
-            Window:Destroy()
-        end
-    })
-end
-
-Window:SelectTab(1)
-
-Fluent:Notify({
-    Title = "Tsuo Hub",
-    Content = T("Carregado com sucesso!", "Loaded successfully!"),
-    SubContent = "discord.gg/tsuo",
-    Duration = 4
-})
