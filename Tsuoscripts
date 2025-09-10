@@ -1,16 +1,48 @@
--- Tsuo Universal Loader
 local PlaceId = game.PlaceId
+
 local Scripts = {
-    [4520749081] = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/king%20legacy", -- King Legacy
-    [124977557560410] = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/growagarden", -- Grow a Garden
-    [86076978383613] = "https://raw.githubusercontent.com/DRK070/TsuoHubZombie/refs/heads/main/TsuoHuntyZombie.lua", -- Hunty Zombie
-    [126509999114328] = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohub99nights", -- 99 Nights
-    [2753915549] = "https://raw.githubusercontent.com/Overgustx2/TsuoLoader/main/Tsuo.lua", -- Blox Fruits
-    [18687417158] = "https://raw.githubusercontent.com/DRK070/TsuoHubForsaken/refs/heads/main/TsuoForsaken.lua", -- Forsaken
-    [121864768012064] = "https://raw.githubusercontent.com/DRK070/TsuoFishIt/refs/heads/main/TsuoHubFishIt.lua", -- Fish It
+    ["KingLegacy"] = {
+        Ids = {4520749081},
+        Url = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/king%20legacy"
+    },
+    ["GrowAGarden"] = {
+        Ids = {126884695634066},
+        Url = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/growagarden"
+    },
+    ["HuntyZombie"] = {
+        Ids = {86076978383613},
+        Url = "https://raw.githubusercontent.com/DRK070/TsuoHubZombie/refs/heads/main/TsuoHuntyZombie.lua"
+    },
+    ["99Nights"] = {
+        Ids = {126509999114328},
+        Url = "https://raw.githubusercontent.com/Tsuo7/TsuoHub/main/Tsuohub99nights"
+    },
+    ["BloxFruits"] = {
+        Ids = {7449423635, 4442272183, 2753915549}, -- adicionei os 3 IDs
+        Url = "https://raw.githubusercontent.com/Overgustx2/TsuoLoader/main/Tsuo.lua"
+    },
+    ["Forsaken"] = {
+        Ids = {18687417158},
+        Url = "https://raw.githubusercontent.com/DRK070/TsuoHubForsaken/refs/heads/main/TsuoForsaken.lua"
+    },
+    ["FishIt"] = {
+        Ids = {121864768012064},
+        Url = "https://raw.githubusercontent.com/DRK070/TsuoFishIt/refs/heads/main/TsuoFishIt.lua"
+    }
 }
 
-local ScriptUrl = Scripts[PlaceId]
+local function getScriptUrl(placeId)
+    for _, data in pairs(Scripts) do
+        for _, id in ipairs(data.Ids) do
+            if id == placeId then
+                return data.Url
+            end
+        end
+    end
+    return nil
+end
+
+local ScriptUrl = getScriptUrl(PlaceId)
 
 if ScriptUrl then
     loadstring(game:HttpGet(ScriptUrl))()
