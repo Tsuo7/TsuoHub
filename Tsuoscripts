@@ -1,1 +1,125 @@
-return loadstring(game:HttpGet("https://raw.githubusercontent.com/DRK070/TsuoHub/refs/heads/main/TsuoHub.lua"))()
+local DISCORD_LINK = "https://discord.gg/tsuo"
+local DISPLAY_TIME = 10
+
+pcall(function()
+    if setclipboard then
+        setclipboard(DISCORD_LINK)
+    elseif toclipboard then
+        toclipboard(DISCORD_LINK)
+    end
+end)
+
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+
+local guiParent = game:FindFirstChildOfClass("CoreGui")
+pcall(function()
+    if gethui then
+        guiParent = gethui()
+    end
+end)
+
+local old = guiParent:FindFirstChild("TSUO_HUB_GUI")
+if old then
+    old:Destroy()
+end
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TSUO_HUB_GUI"
+screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+screenGui.Parent = guiParent
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Parent = screenGui
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+mainFrame.Size = UDim2.new(0.5, 0, 0.2, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
+mainFrame.BackgroundTransparency = 1
+mainFrame.BorderSizePixel = 0
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 16)
+corner.Parent = mainFrame
+
+local stroke = Instance.new("UIStroke")
+stroke.Thickness = 2
+stroke.Color = Color3.fromRGB(255, 255, 255)
+stroke.Transparency = 1
+stroke.Parent = mainFrame
+
+local gradient = Instance.new("UIGradient")
+gradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 170, 255)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(255, 255, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 255))
+})
+gradient.Rotation = 0
+gradient.Parent = mainFrame
+
+local title = Instance.new("TextLabel")
+title.Parent = mainFrame
+title.BackgroundTransparency = 1
+title.Size = UDim2.new(1, 0, 0.6, 0)
+title.Position = UDim2.new(0, 0, 0.05, 0)
+title.Font = Enum.Font.GothamBlack
+title.Text = "TSUO HUB"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextScaled = true
+title.TextTransparency = 1
+
+local titleStroke = Instance.new("UIStroke")
+titleStroke.Color = Color3.fromRGB(0, 0, 0)
+titleStroke.Thickness = 2
+titleStroke.Transparency = 0.5
+titleStroke.Parent = title
+
+local sub = Instance.new("TextLabel")
+sub.Parent = mainFrame
+sub.BackgroundTransparency = 1
+sub.Size = UDim2.new(1, 0, 0.35, 0)
+sub.Position = UDim2.new(0, 0, 0.6, 0)
+sub.Font = Enum.Font.GothamSemibold
+sub.Text = "JOIN: discord.gg/tsuo"
+sub.TextColor3 = Color3.fromRGB(200, 200, 255)
+sub.TextScaled = true
+sub.TextTransparency = 1
+
+local uiScale = Instance.new("UIScale")
+uiScale.Scale = 0.5
+uiScale.Parent = mainFrame
+
+local tweenInfoIn = TweenInfo.new(0.8, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+local tweenInfoPulse = TweenInfo.new(1.2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
+
+TweenService:Create(mainFrame, tweenInfoIn, {BackgroundTransparency = 0.15}):Play()
+TweenService:Create(stroke, tweenInfoIn, {Transparency = 0}):Play()
+TweenService:Create(title, tweenInfoIn, {TextTransparency = 0}):Play()
+TweenService:Create(sub, tweenInfoIn, {TextTransparency = 0}):Play()
+TweenService:Create(uiScale, tweenInfoIn, {Scale = 1}):Play()
+
+local pulse = TweenService:Create(uiScale, tweenInfoPulse, {Scale = 1.05})
+pulse:Play()
+
+task.spawn(function()
+    while screenGui.Parent do
+        for i = 0, 360, 2 do
+            gradient.Rotation = i
+            task.wait(0.03)
+        end
+    end
+end)
+
+task.spawn(function()
+    task.wait(DISPLAY_TIME)
+    if lp and lp.Parent then
+        lp:Kick("TSUO HUB | JOIN: discord.gg/tsuo")
+    end
+    if screenGui then
+        screenGui:Destroy()
+    end
+end)
