@@ -326,186 +326,33 @@ if #erros > 0 then
     for _, e in ipairs(erros) do p("  " .. e) end
 end
 
--- ── FIM DO DUMP ──────────────────────────────────────────────
+-- ── SALVA TXT ────────────────────────────────────────────────
 
 titulo("FIM DO DUMP")
 p("Linhas: " .. #output)
 
 local texto = table.concat(output, "\n")
 
--- ── UI ───────────────────────────────────────────────────────
+-- tenta os caminhos mais comuns do VegaX no Android
+local caminhos = {
+    "tsuo_dump.txt",
+    "workspace/tsuo_dump.txt",
+    "/storage/emulated/0/VegaX/tsuo_dump.txt",
+    "/storage/emulated/0/VegaX/workspace/tsuo_dump.txt",
+    "/storage/emulated/0/VegaX/scripts/tsuo_dump.txt",
+}
 
-local TweenSvc = game:GetService("TweenService")
-local UIS      = game:GetService("UserInputService")
-
-local gui = Instance.new("ScreenGui")
-gui.Name            = "TsuoDumperUI"
-gui.ResetOnSpawn    = false
-gui.ZIndexBehavior  = Enum.ZIndexBehavior.Sibling
-gui.Parent          = Players.LocalPlayer:WaitForChild("PlayerGui")
-
--- janela
-local frame = Instance.new("Frame")
-frame.Size             = UDim2.new(0, 400, 0, 340)
-frame.Position         = UDim2.new(0.5, -200, 0.5, -170)
-frame.BackgroundColor3 = Color3.fromRGB(10, 10, 18)
-frame.BorderSizePixel  = 0
-frame.Parent           = gui
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
-Instance.new("UIStroke", frame).Color        = Color3.fromRGB(120, 60, 220)
-
--- header (arrastar)
-local header = Instance.new("Frame")
-header.Size             = UDim2.new(1, 0, 0, 32)
-header.BackgroundColor3 = Color3.fromRGB(70, 25, 150)
-header.BorderSizePixel  = 0
-header.Parent           = frame
-Instance.new("UICorner", header).CornerRadius = UDim.new(0, 8)
--- tampao inferior do header
-local hfix = Instance.new("Frame")
-hfix.Size             = UDim2.new(1, 0, 0, 8)
-hfix.Position         = UDim2.new(0, 0, 1, -8)
-hfix.BackgroundColor3 = Color3.fromRGB(70, 25, 150)
-hfix.BorderSizePixel  = 0
-hfix.Parent           = header
-
-local titleLbl = Instance.new("TextLabel")
-titleLbl.Size               = UDim2.new(1, -8, 1, 0)
-titleLbl.Position           = UDim2.new(0, 8, 0, 0)
-titleLbl.BackgroundTransparency = 1
-titleLbl.Text               = "TSUO DUMPER  —  " .. #output .. " linhas"
-titleLbl.TextColor3         = Color3.fromRGB(220, 180, 255)
-titleLbl.TextSize           = 12
-titleLbl.Font               = Enum.Font.GothamBold
-titleLbl.TextXAlignment     = Enum.TextXAlignment.Left
-titleLbl.Parent             = header
-
--- botao fechar
-local btnX = Instance.new("TextButton")
-btnX.Size             = UDim2.new(0, 28, 0, 22)
-btnX.Position         = UDim2.new(1, -32, 0.5, -11)
-btnX.BackgroundColor3 = Color3.fromRGB(160, 30, 30)
-btnX.TextColor3       = Color3.fromRGB(255,255,255)
-btnX.Text             = "X"
-btnX.TextSize         = 12
-btnX.Font             = Enum.Font.GothamBold
-btnX.BorderSizePixel  = 0
-btnX.Parent           = header
-Instance.new("UICorner", btnX).CornerRadius = UDim.new(0, 4)
-btnX.MouseButton1Click:Connect(function() gui:Destroy() end)
-
--- textbox scrollavel com o output completo
-local box = Instance.new("TextBox")
-box.Size                  = UDim2.new(1, -16, 0, 256)
-box.Position              = UDim2.new(0, 8, 0, 40)
-box.BackgroundColor3      = Color3.fromRGB(18, 10, 30)
-box.BorderSizePixel       = 0
-box.TextColor3            = Color3.fromRGB(200, 200, 220)
-box.TextSize              = 11
-box.Font                  = Enum.Font.Code
-box.TextXAlignment        = Enum.TextXAlignment.Left
-box.TextYAlignment        = Enum.TextYAlignment.Top
-box.MultiLine             = true
-box.ClearTextOnFocus      = false
-box.TextWrapped           = false
-box.Text                  = texto
-box.Parent                = frame
-Instance.new("UICorner", box).CornerRadius = UDim.new(0, 6)
-
--- botao copiar
-local COR = Color3.fromRGB(90, 40, 180)
-local statusLbl
-
-local btn = Instance.new("TextButton")
-btn.Size             = UDim2.new(0, 180, 0, 30)
-btn.Position         = UDim2.new(0, 8, 1, -38)
-btn.BackgroundColor3 = COR
-btn.TextColor3       = Color3.fromRGB(255,255,255)
-btn.Text             = "Copiar tudo"
-btn.TextSize         = 12
-btn.Font             = Enum.Font.GothamBold
-btn.BorderSizePixel  = 0
-btn.Parent           = frame
-Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
-
-statusLbl = Instance.new("TextLabel")
-statusLbl.Size               = UDim2.new(0, 192, 0, 30)
-statusLbl.Position           = UDim2.new(0, 196, 1, -38)
-statusLbl.BackgroundTransparency = 1
-statusLbl.Text               = "Clica em Copiar tudo"
-statusLbl.TextColor3         = Color3.fromRGB(140, 100, 200)
-statusLbl.TextSize           = 11
-statusLbl.Font               = Enum.Font.Gotham
-statusLbl.TextXAlignment     = Enum.TextXAlignment.Left
-statusLbl.TextWrapped        = true
-statusLbl.Parent             = frame
-
--- salva o txt assim que a UI abre
-local ARQUIVO = "tsuo_dump.txt"
-local salvou  = pcall(writefile, ARQUIVO, texto)
-if salvou then
-    print(">>> Arquivo salvo: workspace/" .. ARQUIVO)
-    statusLbl.Text       = "Salvo em workspace/" .. ARQUIVO
-    statusLbl.TextColor3 = Color3.fromRGB(80, 220, 120)
-else
-    statusLbl.Text       = "writefile falhou — use Copiar tudo"
-    statusLbl.TextColor3 = Color3.fromRGB(255, 200, 60)
+local salvou = false
+for _, path in ipairs(caminhos) do
+    local ok = pcall(writefile, path, texto)
+    if ok then
+        print(">>> SALVO em: " .. path)
+        salvou = true
+        break
+    end
 end
 
-btn.MouseButton1Click:Connect(function()
-    -- tenta salvar de novo e clipboard junto
-    local ok = pcall(writefile, ARQUIVO, texto)
-
-    local clip = false
-    for _, fn in ipairs({
-        function() setclipboard(texto) end,
-        function() toclipboard(texto) end,
-        function() Clipboard.set(texto) end,
-        function() syn.clipboard.set(texto) end,
-    }) do
-        if pcall(fn) then clip = true break end
-    end
-
-    if ok or clip then
-        btn.Text             = ok and "Salvo + Copiado!" or "Copiado!"
-        btn.BackgroundColor3 = Color3.fromRGB(30, 160, 80)
-        statusLbl.Text       = ok and ("workspace/" .. ARQUIVO) or "Clipboard OK"
-        statusLbl.TextColor3 = Color3.fromRGB(80, 220, 120)
-    else
-        -- ultimo fallback: seleciona tudo no textbox
-        box:CaptureFocus()
-        box.SelectionStart = 1
-        box.CursorPosition = #texto + 1
-        btn.Text             = "Ctrl+C no box acima"
-        btn.BackgroundColor3 = Color3.fromRGB(180, 110, 20)
-        statusLbl.Text       = "Tudo selecionado — Ctrl+C"
-        statusLbl.TextColor3 = Color3.fromRGB(255, 200, 60)
-    end
-
-    task.delay(4, function()
-        btn.Text             = "Copiar tudo"
-        btn.BackgroundColor3 = COR
-        statusLbl.Text       = salvou and ("workspace/" .. ARQUIVO) or "Clica em Copiar tudo"
-        statusLbl.TextColor3 = Color3.fromRGB(140, 100, 200)
-    end)
-end)
-
--- arrastar pelo header
-local drag, dragStart, startPos
-header.InputBegan:Connect(function(i)
-    if i.UserInputType == Enum.UserInputType.MouseButton1 then
-        drag = true; dragStart = i.Position; startPos = frame.Position
-    end
-end)
-UIS.InputChanged:Connect(function(i)
-    if drag and i.UserInputType == Enum.UserInputType.MouseMovement then
-        local d = i.Position - dragStart
-        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + d.X,
-                                   startPos.Y.Scale, startPos.Y.Offset + d.Y)
-    end
-end)
-UIS.InputEnded:Connect(function(i)
-    if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = false end
-end)
-
-print(">>> UI criada.")
+if not salvou then
+    print(">>> Nenhum caminho funcionou. Caminhos tentados:")
+    for _, path in ipairs(caminhos) do print("    " .. path) end
+end
