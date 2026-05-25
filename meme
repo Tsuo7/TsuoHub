@@ -333,94 +333,169 @@ p("Linhas: " .. #output)
 
 local texto = table.concat(output, "\n")
 
--- ── UI — botao de copiar ──────────────────────────────────────
+-- ── UI ───────────────────────────────────────────────────────
 
 local TweenSvc = game:GetService("TweenService")
+local UIS      = game:GetService("UserInputService")
 
 local gui = Instance.new("ScreenGui")
-gui.Name         = "TsuoDumperUI"
-gui.ResetOnSpawn = false
-gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-gui.Parent       = Players.LocalPlayer:WaitForChild("PlayerGui")
+gui.Name            = "TsuoDumperUI"
+gui.ResetOnSpawn    = false
+gui.ZIndexBehavior  = Enum.ZIndexBehavior.Sibling
+gui.Parent          = Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- container
+-- janela
 local frame = Instance.new("Frame")
-frame.Size             = UDim2.new(0, 220, 0, 80)
-frame.Position         = UDim2.new(0.5, -110, 1, -100)
+frame.Size             = UDim2.new(0, 400, 0, 340)
+frame.Position         = UDim2.new(0.5, -200, 0.5, -170)
 frame.BackgroundColor3 = Color3.fromRGB(10, 10, 18)
 frame.BorderSizePixel  = 0
 frame.Parent           = gui
 Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 8)
+Instance.new("UIStroke", frame).Color        = Color3.fromRGB(120, 60, 220)
 
-local stroke = Instance.new("UIStroke", frame)
-stroke.Color     = Color3.fromRGB(120, 60, 220)
-stroke.Thickness = 1.5
+-- header (arrastar)
+local header = Instance.new("Frame")
+header.Size             = UDim2.new(1, 0, 0, 32)
+header.BackgroundColor3 = Color3.fromRGB(70, 25, 150)
+header.BorderSizePixel  = 0
+header.Parent           = frame
+Instance.new("UICorner", header).CornerRadius = UDim.new(0, 8)
+-- tampao inferior do header
+local hfix = Instance.new("Frame")
+hfix.Size             = UDim2.new(1, 0, 0, 8)
+hfix.Position         = UDim2.new(0, 0, 1, -8)
+hfix.BackgroundColor3 = Color3.fromRGB(70, 25, 150)
+hfix.BorderSizePixel  = 0
+hfix.Parent           = header
 
--- label de status
-local status = Instance.new("TextLabel")
-status.Size               = UDim2.new(1, -12, 0, 24)
-status.Position           = UDim2.new(0, 6, 0, 6)
-status.BackgroundTransparency = 1
-status.Text               = "Dump pronto — " .. #output .. " linhas"
-status.TextColor3         = Color3.fromRGB(180, 140, 255)
-status.TextSize           = 12
-status.Font               = Enum.Font.GothamBold
-status.TextXAlignment     = Enum.TextXAlignment.Center
-status.Parent             = frame
+local titleLbl = Instance.new("TextLabel")
+titleLbl.Size               = UDim2.new(1, -8, 1, 0)
+titleLbl.Position           = UDim2.new(0, 8, 0, 0)
+titleLbl.BackgroundTransparency = 1
+titleLbl.Text               = "TSUO DUMPER  —  " .. #output .. " linhas"
+titleLbl.TextColor3         = Color3.fromRGB(220, 180, 255)
+titleLbl.TextSize           = 12
+titleLbl.Font               = Enum.Font.GothamBold
+titleLbl.TextXAlignment     = Enum.TextXAlignment.Left
+titleLbl.Parent             = header
+
+-- botao fechar
+local btnX = Instance.new("TextButton")
+btnX.Size             = UDim2.new(0, 28, 0, 22)
+btnX.Position         = UDim2.new(1, -32, 0.5, -11)
+btnX.BackgroundColor3 = Color3.fromRGB(160, 30, 30)
+btnX.TextColor3       = Color3.fromRGB(255,255,255)
+btnX.Text             = "X"
+btnX.TextSize         = 12
+btnX.Font             = Enum.Font.GothamBold
+btnX.BorderSizePixel  = 0
+btnX.Parent           = header
+Instance.new("UICorner", btnX).CornerRadius = UDim.new(0, 4)
+btnX.MouseButton1Click:Connect(function() gui:Destroy() end)
+
+-- textbox scrollavel com o output completo
+local box = Instance.new("TextBox")
+box.Size                  = UDim2.new(1, -16, 0, 256)
+box.Position              = UDim2.new(0, 8, 0, 40)
+box.BackgroundColor3      = Color3.fromRGB(18, 10, 30)
+box.BorderSizePixel       = 0
+box.TextColor3            = Color3.fromRGB(200, 200, 220)
+box.TextSize              = 11
+box.Font                  = Enum.Font.Code
+box.TextXAlignment        = Enum.TextXAlignment.Left
+box.TextYAlignment        = Enum.TextYAlignment.Top
+box.MultiLine             = true
+box.ClearTextOnFocus      = false
+box.TextWrapped           = false
+box.Text                  = texto
+box.Parent                = frame
+Instance.new("UICorner", box).CornerRadius = UDim.new(0, 6)
 
 -- botao copiar
-local COR_BTN = Color3.fromRGB(90, 40, 180)
+local COR = Color3.fromRGB(90, 40, 180)
+local statusLbl
 
 local btn = Instance.new("TextButton")
-btn.Size             = UDim2.new(1, -16, 0, 32)
-btn.Position         = UDim2.new(0, 8, 0, 36)
-btn.BackgroundColor3 = COR_BTN
-btn.TextColor3       = Color3.fromRGB(255, 255, 255)
-btn.Text             = "Copiar output"
-btn.TextSize         = 13
+btn.Size             = UDim2.new(0, 180, 0, 30)
+btn.Position         = UDim2.new(0, 8, 1, -38)
+btn.BackgroundColor3 = COR
+btn.TextColor3       = Color3.fromRGB(255,255,255)
+btn.Text             = "Copiar tudo"
+btn.TextSize         = 12
 btn.Font             = Enum.Font.GothamBold
 btn.BorderSizePixel  = 0
 btn.Parent           = frame
 Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
 
-btn.MouseEnter:Connect(function()
-    TweenSvc:Create(btn, TweenInfo.new(0.1), {
-        BackgroundColor3 = Color3.fromRGB(120, 60, 220)
-    }):Play()
-end)
-btn.MouseLeave:Connect(function()
-    TweenSvc:Create(btn, TweenInfo.new(0.1), {
-        BackgroundColor3 = COR_BTN
-    }):Play()
-end)
+statusLbl = Instance.new("TextLabel")
+statusLbl.Size               = UDim2.new(0, 192, 0, 30)
+statusLbl.Position           = UDim2.new(0, 196, 1, -38)
+statusLbl.BackgroundTransparency = 1
+statusLbl.Text               = "Clica em Copiar tudo"
+statusLbl.TextColor3         = Color3.fromRGB(140, 100, 200)
+statusLbl.TextSize           = 11
+statusLbl.Font               = Enum.Font.Gotham
+statusLbl.TextXAlignment     = Enum.TextXAlignment.Left
+statusLbl.TextWrapped        = true
+statusLbl.Parent             = frame
 
-btn.MouseButton1Click:Connect(function()
-    local copiou = false
-    for _, fn in ipairs({
+local function tryClipboard()
+    local metodos = {
         function() setclipboard(texto) end,
+        function() toclipboard(texto) end,
         function() Clipboard.set(texto) end,
         function() syn.clipboard.set(texto) end,
-    }) do
-        if pcall(fn) then copiou = true break end
+    }
+    for _, fn in ipairs(metodos) do
+        if pcall(fn) then return true end
     end
+    return false
+end
 
-    if copiou then
+btn.MouseButton1Click:Connect(function()
+    -- seleciona tudo no textbox (fallback manual)
+    box:CaptureFocus()
+    box.SelectionStart = 1
+    box.CursorPosition = #texto + 1
+
+    if tryClipboard() then
         btn.Text             = "Copiado!"
         btn.BackgroundColor3 = Color3.fromRGB(30, 160, 80)
-        status.Text          = "Cola aqui no scripthub"
-        task.delay(3, function()
-            btn.Text             = "Copiar output"
-            btn.BackgroundColor3 = COR_BTN
-            status.Text          = "Dump pronto — " .. #output .. " linhas"
-        end)
+        statusLbl.Text       = "Cola aqui no scripthub"
+        statusLbl.TextColor3 = Color3.fromRGB(80, 220, 120)
     else
-        btn.Text             = "Erro — veja console"
-        btn.BackgroundColor3 = Color3.fromRGB(160, 30, 30)
-        task.delay(3, function()
-            btn.Text             = "Copiar output"
-            btn.BackgroundColor3 = COR_BTN
-        end)
+        -- clipboard nao funcionou mas textbox esta selecionado
+        btn.Text             = "Seleciona e Ctrl+C"
+        btn.BackgroundColor3 = Color3.fromRGB(180, 110, 20)
+        statusLbl.Text       = "Tudo selecionado no box acima — Ctrl+C"
+        statusLbl.TextColor3 = Color3.fromRGB(255, 200, 60)
     end
+
+    task.delay(4, function()
+        btn.Text             = "Copiar tudo"
+        btn.BackgroundColor3 = COR
+        statusLbl.Text       = "Clica em Copiar tudo"
+        statusLbl.TextColor3 = Color3.fromRGB(140, 100, 200)
+    end)
 end)
 
-print(">>> UI criada. Clica no botao roxo na tela pra copiar.")
+-- arrastar pelo header
+local drag, dragStart, startPos
+header.InputBegan:Connect(function(i)
+    if i.UserInputType == Enum.UserInputType.MouseButton1 then
+        drag = true; dragStart = i.Position; startPos = frame.Position
+    end
+end)
+UIS.InputChanged:Connect(function(i)
+    if drag and i.UserInputType == Enum.UserInputType.MouseMovement then
+        local d = i.Position - dragStart
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + d.X,
+                                   startPos.Y.Scale, startPos.Y.Offset + d.Y)
+    end
+end)
+UIS.InputEnded:Connect(function(i)
+    if i.UserInputType == Enum.UserInputType.MouseButton1 then drag = false end
+end)
+
+print(">>> UI criada.")
