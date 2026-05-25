@@ -440,42 +440,52 @@ statusLbl.TextXAlignment     = Enum.TextXAlignment.Left
 statusLbl.TextWrapped        = true
 statusLbl.Parent             = frame
 
-local function tryClipboard()
-    local metodos = {
+-- salva o txt assim que a UI abre
+local ARQUIVO = "tsuo_dump.txt"
+local salvou  = pcall(writefile, ARQUIVO, texto)
+if salvou then
+    print(">>> Arquivo salvo: workspace/" .. ARQUIVO)
+    statusLbl.Text       = "Salvo em workspace/" .. ARQUIVO
+    statusLbl.TextColor3 = Color3.fromRGB(80, 220, 120)
+else
+    statusLbl.Text       = "writefile falhou — use Copiar tudo"
+    statusLbl.TextColor3 = Color3.fromRGB(255, 200, 60)
+end
+
+btn.MouseButton1Click:Connect(function()
+    -- tenta salvar de novo e clipboard junto
+    local ok = pcall(writefile, ARQUIVO, texto)
+
+    local clip = false
+    for _, fn in ipairs({
         function() setclipboard(texto) end,
         function() toclipboard(texto) end,
         function() Clipboard.set(texto) end,
         function() syn.clipboard.set(texto) end,
-    }
-    for _, fn in ipairs(metodos) do
-        if pcall(fn) then return true end
+    }) do
+        if pcall(fn) then clip = true break end
     end
-    return false
-end
 
-btn.MouseButton1Click:Connect(function()
-    -- seleciona tudo no textbox (fallback manual)
-    box:CaptureFocus()
-    box.SelectionStart = 1
-    box.CursorPosition = #texto + 1
-
-    if tryClipboard() then
-        btn.Text             = "Copiado!"
+    if ok or clip then
+        btn.Text             = ok and "Salvo + Copiado!" or "Copiado!"
         btn.BackgroundColor3 = Color3.fromRGB(30, 160, 80)
-        statusLbl.Text       = "Cola aqui no scripthub"
+        statusLbl.Text       = ok and ("workspace/" .. ARQUIVO) or "Clipboard OK"
         statusLbl.TextColor3 = Color3.fromRGB(80, 220, 120)
     else
-        -- clipboard nao funcionou mas textbox esta selecionado
-        btn.Text             = "Seleciona e Ctrl+C"
+        -- ultimo fallback: seleciona tudo no textbox
+        box:CaptureFocus()
+        box.SelectionStart = 1
+        box.CursorPosition = #texto + 1
+        btn.Text             = "Ctrl+C no box acima"
         btn.BackgroundColor3 = Color3.fromRGB(180, 110, 20)
-        statusLbl.Text       = "Tudo selecionado no box acima — Ctrl+C"
+        statusLbl.Text       = "Tudo selecionado — Ctrl+C"
         statusLbl.TextColor3 = Color3.fromRGB(255, 200, 60)
     end
 
     task.delay(4, function()
         btn.Text             = "Copiar tudo"
         btn.BackgroundColor3 = COR
-        statusLbl.Text       = "Clica em Copiar tudo"
+        statusLbl.Text       = salvou and ("workspace/" .. ARQUIVO) or "Clica em Copiar tudo"
         statusLbl.TextColor3 = Color3.fromRGB(140, 100, 200)
     end)
 end)
