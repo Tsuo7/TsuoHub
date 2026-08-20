@@ -1,2 +1,0 @@
-return loadstring(game:HttpGet("https://tsuoblox.com/script/dumper"))()
-
